@@ -70,7 +70,7 @@ function start() {
     document
         .getElementById("welcomeTitle")
         .innerText =
-        \`Olá, \${name}! 👋\`;
+        `Olá, ${name}! 👋`;
 
     showScreen("screen-welcome");
 
@@ -196,25 +196,25 @@ function renderQuestion() {
     document
         .getElementById("questionNumber")
         .innerText =
-        \`PERGUNTA \${number}\`;
+        `PERGUNTA ${number}`;
 
 
     document
         .getElementById("progressText")
         .innerText =
-        \`Pergunta \${number} de \${questions.length}\`;
+        `Pergunta ${number} de ${questions.length}`;
 
 
     document
         .getElementById("progressPercent")
         .innerText =
-        \`\${progress}%\`;
+        `${progress}%`;
 
 
     document
         .getElementById("progressBar")
         .style.width =
-        \`\${progress}%\`;
+        `${progress}%`;
 
 
     document
@@ -245,7 +245,7 @@ function renderQuestion() {
 
 
         button.style.animation =
-            \`screenIn .35s ease \${index * .06}s both\`;
+            `screenIn .35s ease ${index * .06}s both`;
 
 
         button.onclick =
@@ -358,19 +358,19 @@ function createResult() {
     document
         .getElementById("resultTitle")
         .innerText =
-        \`Olá, \${name}! 👋\`;
+        `Olá, ${name}! 👋`;
 
 
     document
         .getElementById("score")
         .innerText =
-        \`\${percent}/100\`;
+        `${percent}/100`;
 
 
     document
         .getElementById("resultProgress")
         .style.width =
-        \`\${percent}%\`;
+        `${percent}%`;
 
 
     let starsHTML = "";
@@ -389,7 +389,7 @@ function createResult() {
         } else {
 
             starsHTML +=
-                \`<span class="star-empty">☆</span>\`;
+                `<span class="star-empty">☆</span>`;
         }
 
     }
@@ -770,13 +770,13 @@ function addPlan(title, items) {
 
 
     let html =
-        \`<h4>\${title}</h4><ul>\`;
+        `<h4>${title}</h4><ul>`;
 
 
     items.forEach(item => {
 
         html +=
-            \`<li>\${item}</li>\`;
+            `<li>${item}</li>`;
 
     });
 

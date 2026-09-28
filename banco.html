@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RoutineSync - Banco de Dados</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+body { padding: 24px; }
+.db-page { max-width: 1100px; margin: 0 auto; }
+.db-card { background: rgba(255,255,255,.96); border-radius: 24px; padding: 26px; box-shadow: var(--shadow); }
+.db-header { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
+.db-badge { padding:8px 12px; border-radius:999px; font-weight:800; background:var(--blue-light); color:var(--blue-dark); }
+.db-table-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; margin-top:12px; }
+th, td { padding:12px 14px; border-bottom:1px solid var(--border); text-align:left; }
+th { color:var(--blue-dark); background:#f7fcff; }
+.db-empty { padding:22px 0; color:var(--text-light); }
+.db-error { color:#a94442; }
+.db-actions { display:flex; gap:10px; flex-wrap:wrap; }
+.db-actions a, .db-actions button {
+    border:0; border-radius:14px; padding:10px 14px; font-weight:800; cursor:pointer;
+    text-decoration:none; font-size:14px;
+}
+.db-actions a { background:var(--orange-light); color:var(--orange-dark); }
+.db-actions button { background:var(--blue-dark); color:white; }
+code { background:#f4f8fb; padding:2px 6px; border-radius:6px; }
+</style>
+</head>
+<body>
+<div class="db-page">
+  <div class="db-card">
+    <div class="db-header">
+      <div>
+        <h1 style="margin-bottom:6px;">Banco de Dados — RoutineSync</h1>
+        <p class="description" style="margin:0;">Demonstração MySQL para a FECIP / ETERJ.</p>
+      </div>
+      <div class="db-actions">
+        <a href="/">Voltar ao projeto</a>
+        <button onclick="carregar()">Atualizar dados</button>
+      </div>
+    </div>
+
+    <div id="status" class="db-badge">Verificando conexão MySQL...</div>
+
+    <div class="db-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Objetivo</th>
+            <th>Pontuação</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <div id="message" class="db-empty">Carregando registros...</div>
+  </div>
+</div>
+
+<script>
+function traduzirObjetivo(valor) {
+  if (valor === "food") return "Alimentação";
+  if (valor === "productivity") return "Produtividade";
+  return valor || "-";
+}
+
+function formatarData(valor) {
+  if (!valor) return "-";
+  const data = new Date(valor);
+  return isNaN(data.getTime()) ? valor : data.toLocaleString("pt-BR");
+}
+
+async function carregar() {
+  const status = document.getElementById("status");
+  const rows = document.getElementById("rows");
+  const message = document.getElementById("message");
+
+  status.textContent = "Verificando conexão MySQL...";
+  rows.innerHTML = "";
+  message.textContent = "Carregando registros...";
+  message.className = "db-empty";
+
+  try {
+    const teste = await fetch("/api/db-status");
+    const testeJson = await teste.json();
+
+    if (!teste.ok || !testeJson.ok) {
+      throw new Error(testeJson.error || "Falha na conexão.");
+    }
+
+    status.textContent = "✓ MySQL conectado";
+
+    const response = await fetch("/api/resultados");
+    const data = await response.json();
+
+    if (!response.ok || !data.ok) {
+      throw new Error(data.error || "Não foi possível listar os dados.");
+    }
+
+    if (!data.resultados.length) {
+      message.textContent = "Banco conectado, mas ainda não há resultados. Faça um questionário no site para gerar o primeiro registro.";
+      return;
+    }
+
+    data.resultados.forEach(item => {
+      const tr = document.createElement("tr");
+
+      [item.id, item.nome, item.idade, traduzirObjetivo(item.objetivo), item.pontuacao + "/100", formatarData(item.criado_em)]
+        .forEach(valor => {
+          const td = document.createElement("td");
+          td.textContent = valor;
+          tr.appendChild(td);
+        });
+
+      rows.appendChild(tr);
+    });
+
+    message.textContent = data.total + " registro(s) exibido(s).";
+  } catch (error) {
+    status.textContent = "MySQL ainda não conectado";
+    message.textContent = error.message;
+    message.className = "db-empty db-error";
+  }
+}
+
+carregar();
+</script>
+</body>
+</html>

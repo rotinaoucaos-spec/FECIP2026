@@ -51,15 +51,39 @@ async function ensureSchema() {
 }
 
 module.exports = async function handler(req, res) {
-    if (req.method !== "POST") {
-        return res.status(405).json({
-            ok: false,
-            error: "Método não permitido."
-        });
-    }
-
     try {
         await ensureSchema();
+        const db = getPool();
+
+        if (req.method === "GET") {
+            const [rows] = await db.execute(`
+                SELECT
+                    r.id,
+                    p.nome,
+                    p.idade,
+                    r.objetivo,
+                    r.pontuacao,
+                    r.criado_em
+                FROM resultados r
+                INNER JOIN participantes p
+                    ON p.id = r.participante_id
+                ORDER BY r.id DESC
+                LIMIT 50
+            `);
+
+            return res.status(200).json({
+                ok: true,
+                total: rows.length,
+                resultados: rows
+            });
+        }
+
+        if (req.method !== "POST") {
+            return res.status(405).json({
+                ok: false,
+                error: "Método não permitido."
+            });
+        }
 
         const {
             nome,
@@ -90,7 +114,6 @@ module.exports = async function handler(req, res) {
             });
         }
 
-        const db = getPool();
         const connection = await db.getConnection();
 
         try {
@@ -130,7 +153,7 @@ module.exports = async function handler(req, res) {
 
         return res.status(500).json({
             ok: false,
-            error: "Não foi possível salvar no banco de dados."
+            error: "Não foi possível acessar o banco de dados."
         });
     }
 };

@@ -1,0 +1,757 @@
+/* =====================================
+   CONFIGURAÇÕES GERAIS
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue-light: #dff3ff;
+    --blue: #9ed8f5;
+    --blue-medium: #73bfe5;
+    --blue-dark: #397fa8;
+
+    --orange-light: #fff0df;
+    --orange: #ffd1a6;
+    --orange-medium: #f5ae72;
+    --orange-dark: #d98245;
+
+    --text: #33485c;
+    --text-light: #71869a;
+
+    --white: #ffffff;
+    --border: #c8e3f2;
+
+    --shadow:
+        0 20px 45px rgba(73, 129, 160, 0.18);
+}
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            145deg,
+            #dff3ff 0%,
+            #c8eaff 45%,
+            #fff0df 100%
+        );
+
+    color: var(--text);
+
+    padding: 25px 15px;
+}
+
+.app {
+    width: 100%;
+    max-width: 760px;
+    margin: auto;
+}
+
+.screen {
+    display: none;
+    animation: screenIn .45s ease;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes screenIn {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(20px)
+            scale(.98);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =====================================
+   CARD
+===================================== */
+
+.card {
+
+    background: rgba(255,255,255,.94);
+
+    border:
+        2px solid
+        rgba(255,255,255,.7);
+
+    border-radius: 30px;
+
+    padding: 38px 42px;
+
+    box-shadow: var(--shadow);
+
+    backdrop-filter: blur(10px);
+
+    text-align: center;
+}
+
+
+/* =====================================
+   GIFTCARDS DAS TELAS
+   MESMO TAMANHO E CENTRALIZADOS
+   EXCETO RESULTADO
+===================================== */
+
+.screen:not(#screen-result) .card {
+
+    width: 620px;
+
+    max-width: 100%;
+
+    min-height: 500px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* =====================================
+   TÍTULOS
+===================================== */
+
+h1 {
+
+    font-size: 35px;
+
+    line-height: 1.15;
+
+    color: var(--blue-dark);
+
+    margin-bottom: 15px;
+}
+
+h2 {
+
+    font-size: 28px;
+
+    color: var(--blue-dark);
+
+    margin-bottom: 12px;
+}
+
+.description {
+
+    color: var(--text-light);
+
+    font-size: 18px;
+
+    line-height: 1.6;
+
+    margin-bottom: 28px;
+}
+
+
+/* =====================================
+   TELA INICIAL
+===================================== */
+
+.logo-title {
+
+    font-size: 38px;
+
+    font-weight: 900;
+
+    color: var(--blue-dark);
+
+    margin-bottom: 8px;
+}
+
+.subtitle {
+
+    color: var(--text-light);
+
+    font-size: 17px;
+
+    margin-bottom: 35px;
+}
+
+
+/* =====================================
+   INPUTS
+===================================== */
+
+.input-group {
+
+    text-align: left;
+
+    margin-bottom: 18px;
+}
+
+.input-group label {
+
+    display: block;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    margin-bottom: 7px;
+}
+
+input {
+
+    width: 100%;
+
+    padding: 16px 18px;
+
+    border-radius: 17px;
+
+    border: 2px solid var(--border);
+
+    background: #f7fcff;
+
+    font-size: 17px;
+
+    color: var(--text);
+
+    outline: none;
+
+    transition: .2s;
+}
+
+input:focus {
+
+    border-color: var(--blue-medium);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(115,191,229,.18);
+}
+
+
+/* =====================================
+   BOTÕES
+===================================== */
+
+.btn {
+
+    width: 100%;
+
+    border: none;
+
+    border-radius: 20px;
+
+    padding: 17px;
+
+    font-size: 19px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue-dark),
+            var(--blue-medium)
+        );
+
+    box-shadow:
+        0 10px 25px
+        rgba(57,127,168,.22);
+
+    transition: .25s;
+
+    margin-top: 14px;
+}
+
+.btn:hover {
+
+    transform: translateY(-2px);
+}
+
+.btn.orange {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange-dark),
+            var(--orange-medium)
+        );
+}
+
+
+/* =====================================
+   OBJETIVOS
+===================================== */
+
+.objective {
+
+    text-align: left;
+
+    padding: 22px;
+
+    border-radius: 22px;
+
+    border: 2px solid var(--border);
+
+    background: #f9fdff;
+
+    margin: 13px 0;
+
+    cursor: pointer;
+
+    transition: .25s;
+}
+
+.objective:hover {
+
+    transform: translateY(-2px);
+
+    border-color: var(--blue-medium);
+}
+
+.objective.selected {
+
+    border-color: var(--blue-medium);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue-light),
+            #ffffff
+        );
+
+    box-shadow:
+        0 8px 25px
+        rgba(115,191,229,.2);
+}
+
+.objective-icon {
+
+    font-size: 36px;
+
+    margin-bottom: 7px;
+}
+
+.objective h3 {
+
+    font-size: 21px;
+
+    color: var(--text);
+
+    margin-bottom: 7px;
+}
+
+.objective p {
+
+    color: var(--text-light);
+
+    font-size: 16px;
+
+    line-height: 1.45;
+}
+
+
+/* =====================================
+   INTRO
+===================================== */
+
+.big-emoji {
+
+    font-size: 65px;
+
+    margin-bottom: 12px;
+}
+
+
+/* =====================================
+   QUESTIONÁRIO
+===================================== */
+
+.question-header {
+
+    text-align: left;
+
+    margin-bottom: 22px;
+}
+
+.question-number {
+
+    color: var(--orange-dark);
+
+    font-weight: 800;
+
+    font-size: 15px;
+
+    margin-bottom: 9px;
+}
+
+.question-text {
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    color: var(--text);
+
+    line-height: 1.3;
+}
+
+
+/* =====================================
+   PROGRESSO
+===================================== */
+
+.progress-area {
+
+    margin-bottom: 22px;
+}
+
+.progress-info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--text-light);
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+.progress {
+
+    height: 11px;
+
+    width: 100%;
+
+    background: var(--blue-light);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+
+    height: 100%;
+
+    width: 0%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue-medium),
+            var(--orange-medium)
+        );
+
+    transition: width .4s ease;
+}
+
+
+/* =====================================
+   OPÇÕES
+===================================== */
+
+.options {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 11px;
+}
+
+.option {
+
+    width: 100%;
+
+    padding: 15px 17px;
+
+    border-radius: 17px;
+
+    border: 2px solid var(--border);
+
+    background: white;
+
+    color: var(--text);
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.option:hover {
+
+    transform: translateY(-2px);
+
+    border-color: var(--blue-medium);
+
+    background: #f8fcff;
+}
+
+.option.selected {
+
+    border-color: var(--orange-medium);
+
+    background: var(--orange-light);
+}
+
+
+/* =====================================
+   RESULTADO
+   MANTIDO SEM A REGRA DE TAMANHO
+===================================== */
+
+.result-stars {
+
+    font-size: 40px;
+
+    letter-spacing: 4px;
+
+    margin: 18px 0;
+}
+
+.star-empty {
+
+    opacity: .25;
+}
+
+.score {
+
+    font-size: 21px;
+
+    color: var(--text-light);
+}
+
+.score strong {
+
+    color: var(--orange-dark);
+
+    font-size: 27px;
+}
+
+.result-progress {
+
+    margin-top: 18px;
+}
+
+
+/* =====================================
+   CAIXAS DO RESULTADO
+===================================== */
+
+.result-box {
+
+    text-align: left;
+
+    margin-top: 20px;
+
+    padding: 22px;
+
+    border-radius: 22px;
+
+    background: white;
+
+    border: 2px solid var(--border);
+
+    box-shadow:
+        0 8px 25px
+        rgba(73,129,160,.08);
+}
+
+.result-box h3 {
+
+    font-size: 21px;
+
+    margin-bottom: 13px;
+}
+
+.result-box.positive h3 {
+
+    color: #48b889;
+}
+
+.result-box.improve h3 {
+
+    color: var(--orange-dark);
+}
+
+.result-box ul {
+
+    list-style: none;
+}
+
+.result-box li {
+
+    margin: 11px 0;
+
+    color: var(--text-light);
+
+    font-size: 16px;
+
+    line-height: 1.45;
+}
+
+.positive li::before {
+
+    content: "✓";
+
+    color: #48b889;
+
+    font-weight: 900;
+
+    margin-right: 10px;
+}
+
+.improve li::before {
+
+    content: "⚠";
+
+    color: var(--orange-dark);
+
+    margin-right: 10px;
+}
+
+
+/* =====================================
+   PLANO
+===================================== */
+
+.plan {
+
+    margin-top: 23px;
+
+    text-align: left;
+}
+
+.plan-title {
+
+    font-size: 27px;
+
+    color: var(--blue-dark);
+
+    margin-bottom: 14px;
+}
+
+.plan-card {
+
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue-light),
+            white
+        );
+
+    border-radius: 20px;
+
+    margin-bottom: 11px;
+
+    border: 2px solid var(--border);
+}
+
+.plan-card h4 {
+
+    font-size: 19px;
+
+    margin-bottom: 9px;
+}
+
+.plan-card ul {
+
+    padding-left: 19px;
+}
+
+.plan-card li {
+
+    color: var(--text-light);
+
+    margin: 7px 0;
+
+    line-height: 1.4;
+}
+
+
+/* =====================================
+   RESPONSIVIDADE
+===================================== */
+
+@media(max-width: 600px) {
+
+    body {
+
+        padding: 15px 10px;
+    }
+
+    .card {
+
+        padding: 30px 22px;
+
+        border-radius: 27px;
+    }
+
+    .screen:not(#screen-result) .card {
+
+        width: 100%;
+
+        min-height: 500px;
+    }
+
+    .logo-title {
+
+        font-size: 32px;
+    }
+
+    h1 {
+
+        font-size: 30px;
+    }
+
+    h2 {
+
+        font-size: 26px;
+    }
+
+    .description {
+
+        font-size: 16px;
+    }
+
+    .question-text {
+
+        font-size: 21px;
+    }
+
+    .option {
+
+        font-size: 16px;
+
+        padding: 14px;
+    }
+
+}

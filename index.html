@@ -1,0 +1,365 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>RoutineSync</title>    <link rel="stylesheet" href="css/style.css">
+</head><body><div class="app"><!-- =====================================
+     TELA 1 — INÍCIO
+===================================== --><section id="screen-start" class="screen active"><div class="card"><div class="logo-title">
+    RoutineSync
+</div>
+
+<div class="subtitle">
+    Sua rotina, analisada e personalizada.
+</div>
+
+
+<div class="input-group">
+
+    <label>
+        Nome
+    </label>
+
+    <input
+        id="nameInput"
+        type="text"
+        placeholder="Seu nome"
+    >
+
+</div>
+
+
+<div class="input-group">
+
+    <label>
+        Idade
+    </label>
+
+    <input
+        id="ageInput"
+        type="number"
+        placeholder="Sua idade"
+    >
+
+</div>
+
+
+<button
+    class="btn"
+    onclick="start()"
+>
+    Começar →
+</button>
+
+</div></section><!-- =====================================
+     TELA 2 — BOAS-VINDAS
+===================================== --><section id="screen-welcome" class="screen"><div class="card"><h1 id="welcomeTitle">
+    Olá! 👋
+</h1>
+
+<p class="description">
+
+    Estamos felizes por ter você aqui!
+
+    <br><br>
+
+    Agora vamos conhecer um pouco da sua
+    rotina para criar recomendações
+    personalizadas que ajudem você a
+    alcançar seus objetivos de forma prática
+    e eficiente.
+
+</p>
+
+
+<button
+    class="btn"
+    onclick="showScreen('screen-goal')"
+>
+    Continuar →
+</button>
+
+</div></section><!-- =====================================
+     TELA 3 — OBJETIVO
+===================================== --><section id="screen-goal" class="screen"><div class="card"><h1>
+    Qual é o seu objetivo?
+</h1>
+
+<p class="description">
+    Escolha uma opção.
+</p>
+
+
+<div
+    id="foodObjective"
+    class="objective"
+    onclick="selectGoal('food')"
+>
+
+    <div class="objective-icon">
+        🍎
+    </div>
+
+    <h3>
+        Melhorar alimentação
+    </h3>
+
+    <p>
+        Receba recomendações sobre
+        alimentação saudável, hidratação
+        e hábitos alimentares.
+    </p>
+
+</div>
+
+
+<div
+    id="productivityObjective"
+    class="objective"
+    onclick="selectGoal('productivity')"
+>
+
+    <div class="objective-icon">
+        🧠
+    </div>
+
+    <h3>
+        Melhorar produtividade
+    </h3>
+
+    <p>
+        Descubra como organizar melhor
+        seu tempo, aumentar seu foco
+        e criar uma rotina eficiente.
+    </p>
+
+</div>
+
+
+<button
+    class="btn"
+    onclick="continueGoal()"
+>
+    Continuar →
+</button>
+
+</div></section><!-- =====================================
+     TELA 4 — INTRODUÇÃO
+===================================== --><section id="screen-intro" class="screen"><div class="card"><div
+    id="introEmoji"
+    class="big-emoji"
+>
+    🍎
+</div>
+
+
+<h1 id="introTitle">
+    Questionário de Alimentação
+</h1>
+
+
+<p class="description">
+
+    Responda às próximas perguntas para
+    que possamos conhecer seus hábitos
+    e criar um plano personalizado para você.
+
+</p>
+
+
+<p
+    style="
+    font-weight:700;
+    margin-bottom:20px;
+    "
+>
+
+    Tempo estimado:
+
+    <span style="color:var(--orange-dark)">
+        4 minutos
+    </span>
+
+</p>
+
+
+<button
+    class="btn"
+    onclick="startQuiz()"
+>
+    Iniciar Questionário
+</button>
+
+</div></section><!-- =====================================
+     TELA 5 — QUESTIONÁRIO
+===================================== --><section id="screen-quiz" class="screen"><div class="card"><div class="progress-area">
+
+    <div class="progress-info">
+
+        <span id="progressText">
+            Pergunta 1 de 20
+        </span>
+
+        <span id="progressPercent">
+            0%
+        </span>
+
+    </div>
+
+
+    <div class="progress">
+
+        <div
+            id="progressBar"
+            class="progress-bar"
+        ></div>
+
+    </div>
+
+</div>
+
+
+
+<div class="question-header">
+
+    <div
+        id="questionNumber"
+        class="question-number"
+    >
+        PERGUNTA 1
+    </div>
+
+
+    <div
+        id="questionText"
+        class="question-text"
+    ></div>
+
+</div>
+
+
+
+<div
+    id="options"
+    class="options"
+></div>
+
+</div></section><!-- =====================================
+     TELA 6 — RESULTADO
+===================================== --><section id="screen-result" class="screen"><div class="card"><div
+    id="resultEmoji"
+    class="big-emoji"
+>
+    🍎
+</div>
+
+
+<h1 id="resultTitle">
+    Olá!
+</h1>
+
+
+<p class="description">
+    Analisamos suas respostas.
+</p>
+
+
+<div
+    id="resultLabel"
+    style="
+    font-weight:800;
+    color:var(--text-light);
+    letter-spacing:1px;
+    "
+>
+    SUA ALIMENTAÇÃO
+</div>
+
+
+<div
+    id="stars"
+    class="result-stars"
+></div>
+
+
+<div class="score">
+
+    Pontuação geral:
+
+    <strong id="score">
+        0/100
+    </strong>
+
+</div>
+
+
+<div class="result-progress">
+
+    <div class="progress">
+
+        <div
+            id="resultProgress"
+            class="progress-bar"
+        ></div>
+
+    </div>
+
+</div>
+
+
+
+<div
+    id="positiveBox"
+    class="result-box positive"
+>
+
+    <h3>
+        Pontos positivos
+    </h3>
+
+    <ul id="positives"></ul>
+
+</div>
+
+
+
+<div
+    id="improveBox"
+    class="result-box improve"
+>
+
+    <h3>
+        Pontos para melhorar
+    </h3>
+
+    <ul id="improvements"></ul>
+
+</div>
+
+
+
+<div class="plan">
+
+    <div class="plan-title">
+        Sua rotina personalizada
+    </div>
+
+    <div id="plan"></div>
+
+</div>
+
+
+
+<button
+    class="btn orange"
+    onclick="restart()"
+>
+    Fazer novamente
+</button>
+
+</div></section></div>    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/questions.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

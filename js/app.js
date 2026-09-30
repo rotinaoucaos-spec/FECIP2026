@@ -418,9 +418,6 @@ function createResult() {
     createPlan();
 
     showScreen("screen-result");
-
-    salvarResultadoNoBanco(percent);
-
 }
 
 
@@ -837,55 +834,3 @@ function restart() {
 }
 
 
-/* =====================================
-   SALVAR RESULTADO NO MYSQL
-===================================== */
-
-async function salvarResultadoNoBanco(pontuacao) {
-
-    try {
-
-        const response = await fetch("/api/resultados", {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                nome: name,
-                idade: Number(age),
-                objetivo: goal,
-                pontuacao: Number(pontuacao),
-                respostas: answers
-            })
-
-        });
-
-        if (!response.ok) {
-
-            console.warn(
-                "O resultado foi calculado, mas não pôde ser salvo no MySQL."
-            );
-
-            return;
-        }
-
-        const data = await response.json();
-
-        console.log(
-            "Resultado salvo no MySQL.",
-            data
-        );
-
-    } catch (error) {
-
-        console.warn(
-            "Falha ao conectar com o banco de dados.",
-            error
-        );
-
-    }
-
-}

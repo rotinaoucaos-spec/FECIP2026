@@ -7,7 +7,6 @@ create table if not exists public.resultados (
     idade smallint not null check (idade between 1 and 120),
     objetivo text not null check (objetivo in ('food', 'productivity')),
     pontuacao smallint not null check (pontuacao between 0 and 100),
-    respostas jsonb not null default '{}'::jsonb,
     criado_em timestamptz not null default now()
 );
 

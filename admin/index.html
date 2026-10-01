@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RoutineSync - Área Administrativa</title>
+<link rel="stylesheet" href="/css/style.css">
+<style>
+body{padding:24px}
+.admin-wrap{max-width:980px;margin:0 auto}
+.admin-card{background:rgba(255,255,255,.96);border-radius:26px;padding:28px;box-shadow:var(--shadow)}
+.admin-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.admin-top h1{margin:0}
+.admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 24px}
+.stat{background:#f8fcff;border:2px solid var(--border);border-radius:18px;padding:18px;text-align:center}
+.stat strong{display:block;font-size:28px;color:var(--blue-dark);margin-top:6px}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px 14px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+th{color:var(--blue-dark);background:#f7fcff}
+.admin-actions{display:flex;gap:10px;flex-wrap:wrap}
+.admin-actions button,.admin-actions a{border:0;border-radius:14px;padding:10px 14px;font-weight:800;cursor:pointer;text-decoration:none}
+.admin-actions button{background:var(--blue-dark);color:#fff}
+.admin-actions a{background:var(--orange-light);color:var(--orange-dark)}
+.error{color:#a94442;margin-top:12px;font-weight:700}
+.helper{color:var(--text-light);font-size:14px;line-height:1.5;margin-top:14px}
+.hidden{display:none!important}
+#loginCard{max-width:520px;margin:40px auto}
+@media(max-width:700px){.admin-grid{grid-template-columns:1fr}.admin-card{padding:20px}}
+</style>
+</head>
+<body>
+<div class="admin-wrap">
+
+<section id="loginCard" class="admin-card">
+  <h1>Área Administrativa</h1>
+  <p class="description">Entre para visualizar os resultados salvos no Supabase.</p>
+
+  <form id="loginForm">
+    <div class="input-group">
+      <label for="adminEmail">E-mail</label>
+      <input id="adminEmail" type="email" autocomplete="username" required placeholder="admin@exemplo.com">
+    </div>
+
+    <div class="input-group">
+      <label for="adminPassword">Senha</label>
+      <input id="adminPassword" type="password" autocomplete="current-password" required placeholder="Sua senha">
+    </div>
+
+    <button id="loginButton" class="btn" type="submit">Entrar</button>
+    <div id="loginError" class="error"></div>
+  </form>
+
+  <p class="helper">Esta área é protegida pelo Supabase Auth. Usuários comuns não precisam de login para responder ao questionário.</p>
+</section>
+
+<section id="dashboardCard" class="admin-card hidden">
+  <div class="admin-top">
+    <div>
+      <h1>Resultados</h1>
+      <p class="description" style="margin:6px 0 0">Painel administrativo do RoutineSync.</p>
+    </div>
+    <div class="admin-actions">
+      <a href="/">Voltar ao site</a>
+      <button id="refreshButton" type="button">Atualizar</button>
+      <button id="logoutButton" type="button">Sair</button>
+    </div>
+  </div>
+
+  <div class="admin-grid">
+    <div class="stat">Registros<strong id="totalStat">0</strong></div>
+    <div class="stat">Média<strong id="averageStat">0</strong></div>
+    <div class="stat">Último envio<strong id="lastStat">—</strong></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Idade</th>
+          <th>Objetivo</th>
+          <th>Pontuação</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody id="resultsBody"></tbody>
+    </table>
+  </div>
+
+  <p id="dashboardMessage" class="helper">Carregando...</p>
+</section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>

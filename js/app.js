@@ -423,8 +423,7 @@ function createResult() {
         nome: name,
         idade: age,
         objetivo: goal,
-        pontuacao: percent,
-        respostas: answers
+        pontuacao: percent
     }).catch(error => {
         console.warn("Não foi possível salvar o resultado no Supabase.", error);
     });

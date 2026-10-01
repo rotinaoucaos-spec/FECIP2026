@@ -4,8 +4,7 @@ async function salvarResultadoNoSupabase({
     nome,
     idade,
     objetivo,
-    pontuacao,
-    respostas
+    pontuacao
 }) {
     const { error } = await supabaseClient
         .from("resultados")
@@ -13,8 +12,7 @@ async function salvarResultadoNoSupabase({
             nome: nome.trim(),
             idade: Number(idade),
             objetivo,
-            pontuacao: Number(pontuacao),
-            respostas
+            pontuacao: Number(pontuacao)
         });
 
     if (error) {

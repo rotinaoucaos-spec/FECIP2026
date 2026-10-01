@@ -24,3 +24,16 @@ with check (true);
 
 -- Não há política de SELECT público.
 -- Os dados ficam visíveis no painel do Supabase para a demonstração da banca.
+
+
+grant select on table public.resultados to authenticated;
+
+drop policy if exists "permitir_select_admin" on public.resultados;
+
+create policy "permitir_select_admin"
+on public.resultados
+for select
+to authenticated
+using (
+    lower(coalesce((select auth.jwt()->>'email'), '')) = 'rotinaoucaos@gmail.com'
+);

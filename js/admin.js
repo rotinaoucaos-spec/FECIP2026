@@ -1,3 +1,5 @@
+const ADMIN_EMAIL = "rotinaoucaos@gmail.com";
+
 const loginCard = document.getElementById("loginCard");
 const dashboardCard = document.getElementById("dashboardCard");
 const loginForm = document.getElementById("loginForm");
@@ -116,6 +118,15 @@ loginForm.addEventListener("submit", async event => {
         return;
     }
 
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const emailLogado = (userData.user?.email || "").toLowerCase();
+
+    if (emailLogado !== ADMIN_EMAIL) {
+        await supabaseClient.auth.signOut();
+        loginError.textContent = "Este usuário não possui acesso administrativo.";
+        return;
+    }
+
     showDashboard();
     await carregarResultados();
 });
@@ -132,6 +143,15 @@ async function iniciarAdmin() {
 
     if (error || !data.session) {
         showLogin();
+        return;
+    }
+
+    const emailLogado = (data.session.user?.email || "").toLowerCase();
+
+    if (emailLogado !== ADMIN_EMAIL) {
+        await supabaseClient.auth.signOut();
+        showLogin();
+        loginError.textContent = "Este usuário não possui acesso administrativo.";
         return;
     }
 

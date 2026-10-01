@@ -418,6 +418,16 @@ function createResult() {
     createPlan();
 
     showScreen("screen-result");
+
+    salvarResultadoNoSupabase({
+        nome: name,
+        idade: age,
+        objetivo: goal,
+        pontuacao: percent,
+        respostas: answers
+    }).catch(error => {
+        console.warn("Não foi possível salvar o resultado no Supabase.", error);
+    });
 }
 
 
